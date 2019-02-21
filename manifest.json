@@ -1,0 +1,30 @@
+{
+   "name":"Where's that link go?",
+   "version":"1.0",
+   "description":"Preview where links go before clicking on them. Also expands and shows shortened links.",
+   "manifest_version":2,
+   "permissions":[
+      "activeTab",
+      "declarativeContent"
+   ],
+   "icons":{
+      "16":"images/hand_128.png",
+      "32":"images/hand_128.png",
+      "48":"images/hand_128.png",
+      "128":"images/hand_128.png"
+   },
+   "page_action":{
+      "default_icon":{
+         "16":"images/hand_128.png",
+         "32":"images/hand_128.png",
+         "48":"images/hand_128.png",
+         "128":"images/hand_128.png"
+      }
+   },
+   "background":{
+      "scripts":[
+         "script.js"
+      ],
+      "persistent":false
+   }
+}
