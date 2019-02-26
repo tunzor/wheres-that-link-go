@@ -23,9 +23,9 @@ $(document).ready(function(){
 	    console.log(currentHoverLink);
 
 	    updatePopup(currentHoverLink, currentMousePos.x, currentMousePos.y);
-	    $("#wtlg_popup").show();
+	    $("#wtlg_popup").stop(true, true).fadeIn();
     }, function(){
-   		$("#wtlg_popup").hide(); 
+   		$("#wtlg_popup").stop(true, true).fadeOut(); 
  	});
 });
 
