@@ -4,7 +4,8 @@
    "description":"Preview where links go before clicking on them. Also expands and shows shortened links.",
    "manifest_version":2,
    "permissions":[
-      "activeTab"
+      "activeTab",
+      "storage"
    ],
    "icons":{
       "16":"images/hand_128.png",

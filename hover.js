@@ -3,30 +3,47 @@
 //TODO: dynamic popup size
 //TODO: extend popup to left if on right side
 
+var enabled = false;
 var currentHoverLink = null;
-
 var currentMousePos = { x: -1, y: -1 };
+
+// Enabling extension
+chrome.storage.local.set({ext_enabled: true}, function() {
+	enabled = true;
+	console.log('Hover: Extension enabled');
+});
+
+// Listening to extension button
+//chrome.browserAction.onClicked.addListener(toggleExtension);
+
 // Gets current cursor position for drawing popup
 $(document).mousemove(function(event) {
     currentMousePos.x = event.pageX;
     currentMousePos.y = event.pageY;
 });
 
+chrome.storage.local.get(['ext_enabled'], function(result) {
+	enabled = result.ext_enabled;
+	console.log('Hover: Extension enabled: ' + result.ext_enabled);
+});
+
 $(document).ready(function(){
-	// Initially add popup to body
-	$("body").append(getPopup());
+	if(enabled) {
+		// Initially add popup to body
+		$("body").append(getPopup());
 
-	$("a").hover(function(){
-		currentHoverLink = $(this).attr('href');
+		$("a").hover(function(){
+			currentHoverLink = $(this).attr('href');
 
-		console.log(currentMousePos.x + ", " + currentMousePos.y);
-	    console.log(currentHoverLink);
+			console.log(currentMousePos.x + ", " + currentMousePos.y);
+		    console.log(currentHoverLink);
 
-	    updatePopup(currentHoverLink, currentMousePos.x, currentMousePos.y);
-	    $("#wtlg_popup").stop(true, true).fadeIn();
-    }, function(){
-   		$("#wtlg_popup").stop(true, true).fadeOut(); 
- 	});
+		    updatePopup(currentHoverLink, currentMousePos.x, currentMousePos.y);
+		    $("#wtlg_popup").stop(true, true).fadeIn();
+	    }, function(){
+	   		$("#wtlg_popup").stop(true, true).fadeOut(); 
+	 	});
+	}
 });
 
 function getPopup() {
@@ -39,4 +56,18 @@ function updatePopup(url, left, top) {
 	$("#wtlg_popup").css("left",left);
 	$("#wtlg_popup").css("top",top);
 	$("#wtlg_popup").html(url);
+}
+
+function toggleExtension() {
+	if(enabled) {
+		chrome.storage.local.set({ext_enabled: false}, function() {
+			enabled = false;
+			console.log('Hover: Extension disabled');
+		});
+	} else {
+		chrome.storage.local.set({ext_enabled: true}, function() {
+			enabled = true;
+			console.log('Hover: Extension enabled');
+		});
+	}
 }
