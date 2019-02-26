@@ -4,8 +4,7 @@
    "description":"Preview where links go before clicking on them. Also expands and shows shortened links.",
    "manifest_version":2,
    "permissions":[
-      "activeTab",
-      "declarativeContent"
+      "activeTab"
    ],
    "icons":{
       "16":"images/hand_128.png",
@@ -13,18 +12,12 @@
       "48":"images/hand_128.png",
       "128":"images/hand_128.png"
    },
-   "page_action":{
-      "default_icon":{
-         "16":"images/hand_128.png",
-         "32":"images/hand_128.png",
-         "48":"images/hand_128.png",
-         "128":"images/hand_128.png"
-      }
-   },
-   "background":{
-      "scripts":[
-         "script.js"
+   "content_scripts":[{
+      "matches": ["http://*/*", "https://*/*"],
+      "js":[
+         "third-party/jquery.min.js",
+         "hover.js"
       ],
-      "persistent":false
-   }
+      "run_at": "document_idle"
+   }]
 }
