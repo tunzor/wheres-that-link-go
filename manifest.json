@@ -1,7 +1,7 @@
 {
    "name":"Where's that link go?",
    "version":"1.0",
-   "description":"Preview links before clicking on them! Popup background colour shows if link is on same domain, shortened, or somewhere else.",
+   "description":"Preview links before clicking on them! Popup colour shows if link is on same domain, shortened, or goes somewhere else.",
    "manifest_version": 2,
    "permissions":[
       "activeTab",
