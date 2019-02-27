@@ -1,10 +1,12 @@
+// Default values
 var enabled = false;
 var currentHoverLink = null;
 var currentMousePos = { x: -1, y: -1 };
 
-var pagePath = window.location.pathname;
-var fullUrl = window.location.href;
-var domain = window.location.origin;
+// Gets different parts of page URL
+var fullUrl = window.location.href; // http://example.com/path/to/page.html
+var pagePath = window.location.pathname; // /path/to/page.html
+var domain = window.location.origin; // http://example.com
 
 // Gets current cursor position for drawing popup
 $(document).mousemove(function(event) {

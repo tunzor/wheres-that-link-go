@@ -14,6 +14,7 @@ function toggleExtension() {
 		chrome.storage.local.set({ext_enabled: false}, function() {
 			console.log('Disabled extension');
 			enabled = false;
+			// Changes extension icon in toolbar
 			chrome.browserAction.setIcon({
 				path: {
 					"32":"images/hand_faded-32.png"
