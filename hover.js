@@ -1,7 +1,5 @@
-//TODO: toggling of extension
+//TODO: expand bit.ly and other shortened links
 //TODO: changing background colour based on internal/external link
-//TODO: dynamic popup size
-//TODO: extend popup to left if on right side
 
 var enabled = false;
 var currentHoverLink = null;
@@ -23,7 +21,6 @@ $(document).ready(function(){
 
 	$("a").hover(function(){
 		chrome.storage.local.get(['ext_enabled'], function(result) {
-			console.log("google storage enabled: " + result.ext_enabled);
 			enabled = result.ext_enabled;
 		});
 		if(enabled){
@@ -44,8 +41,9 @@ $(document).ready(function(){
 
 function getPopup() {
 	return "<div id='wtlg_popup' style='display: none; z-index: 1000; "
-		+ "background-color: #e3e3e3; position: absolute; height: 30px; "
-		+ "border: 2px solid green; width: 400px; left: 0px; top: 0px;'</div>";
+		+ "background-color: #e3e3e3; position: absolute;"
+		+ "border: 2px solid green; left: 0px; top: 0px; font-size: 16pt;"
+		+ "'</div>";
 }
 
 function updatePopup(url, left, top) {
