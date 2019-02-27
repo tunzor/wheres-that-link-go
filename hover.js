@@ -58,7 +58,7 @@ function getPopup() {
 
 function updatePopup(url, left, top) {
 	// Check if URL is on same domain
-	if(url.includes(domain) || url.charAt(0) == "/" ) {
+	if(url.includes(domain) || url.charAt(0) == "/" || url.charAt(0) == "#" ) {
 		$("#wtlg_popup").css("background-color", "#4fe27b");
 	// Check if URL is shortened using bit.ly, goo.gl, or t.co
 	} else if(url.includes("http://bit.ly") || url.includes("https://bit.ly")
