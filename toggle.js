@@ -1,23 +1,32 @@
-chrome.browserAction.onClicked.addListener(toggleExtension);
-
 var enabled = false;
-chrome.storage.local.get(['ext_enabled'], function(result) {
-	enabled = result.ext_enabled;
+chrome.storage.local.set({ext_enabled: true}, function() {
+	console.log('Enabled extension');
+	enabled = true;
 });
+
+chrome.browserAction.onClicked.addListener(toggleExtension);
 
 function toggleExtension() {
 	console.log("Toggling...")
 	if(enabled) {
 		chrome.storage.local.set({ext_enabled: false}, function() {
 			console.log('Disabled extension');
-			chrome.browserAction.setIcon({path: 'images/hand_128_faded.png'});
 			enabled = false;
+			chrome.browserAction.setIcon({
+				path: {
+					"32":"images/hand_faded-32.png"
+				}
+			});
 		});
 	} else {
 		chrome.storage.local.set({ext_enabled: true}, function() {
 			console.log('Enabled extension');
-			chrome.browserAction.setIcon({path: 'images/hand_128.png'});
 			enabled = true;
+			chrome.browserAction.setIcon({
+				path: {
+					"32":"images/hand-32.png"
+				}
+			});
 		});
 	}
 }

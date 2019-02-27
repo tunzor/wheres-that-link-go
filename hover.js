@@ -7,15 +7,6 @@ var enabled = false;
 var currentHoverLink = null;
 var currentMousePos = { x: -1, y: -1 };
 
-// Enabling extension
-// chrome.storage.local.set({ext_enabled: true}, function() {
-// 	enabled = true;
-// 	console.log('Hover: Extension enabled');
-// });
-
-// Listening to extension button
-//chrome.browserAction.onClicked.addListener(toggleExtension());
-
 // Gets current cursor position for drawing popup
 $(document).mousemove(function(event) {
     currentMousePos.x = event.pageX;
@@ -23,41 +14,32 @@ $(document).mousemove(function(event) {
 });
 
 chrome.storage.local.get(['ext_enabled'], function(result) {
+	console.log('Extension toggled: ' + result.ext_enabled);
 	enabled = result.ext_enabled;
-	console.log('Hover: Extension enabled: ' + result.ext_enabled);
 });
 
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if (request.greeting == "hello")
-      console.log('Message received');
-  });
-
 $(document).ready(function(){
-	chrome.storage.local.get(['ext_enabled'], function(result) {
-		enabled = result.ext_enabled;
-	});
+	$("body").append(getPopup());
 
-	if(enabled) {
-		// Initially add popup to body
-		$("body").append(getPopup());
+	$("a").hover(function(){
+		chrome.storage.local.get(['ext_enabled'], function(result) {
+			console.log("google storage enabled: " + result.ext_enabled);
+			enabled = result.ext_enabled;
+		});
+		if(enabled){
+			currentHoverLink = $(this).attr('href');
 
-		$("a").hover(function(){
-			if(isEnabled){
-				currentHoverLink = $(this).attr('href');
+			console.log(currentMousePos.x + ", " + currentMousePos.y);
+		    console.log(currentHoverLink);
 
-				console.log(currentMousePos.x + ", " + currentMousePos.y);
-			    console.log(currentHoverLink);
-
-			    updatePopup(currentHoverLink, currentMousePos.x, currentMousePos.y);
-			    $("#wtlg_popup").stop(true, true).fadeIn();
-			}
-	    }, function(){
-	    	if(isEnabled){
-		   		$("#wtlg_popup").stop(true, true).fadeOut(); 
-		   	}
-	 	});
-	}
+		    updatePopup(currentHoverLink, currentMousePos.x, currentMousePos.y);
+		    $("#wtlg_popup").stop(true, true).fadeIn();
+		}
+    }, function(){
+    	if(enabled){
+	   		$("#wtlg_popup").stop(true, true).fadeOut(); 
+	   	}
+ 	});
 });
 
 function getPopup() {
@@ -71,22 +53,3 @@ function updatePopup(url, left, top) {
 	$("#wtlg_popup").css("top",top);
 	$("#wtlg_popup").html(url);
 }
-
-function isEnabled() {
-	chrome.storage.local.get(['ext_enabled'], function(result) {
-		return result.ext_enabled;
-	});
-}
-// function toggleExtension() {
-// 	if(enabled) {
-// 		chrome.storage.local.set({ext_enabled: false}, function() {
-// 			enabled = false;
-// 			console.log('Hover: Extension disabled');
-// 		});
-// 	} else {
-// 		chrome.storage.local.set({ext_enabled: true}, function() {
-// 			enabled = true;
-// 			console.log('Hover: Extension enabled');
-// 		});
-// 	}
-// }

@@ -9,10 +9,10 @@
       "declarativeContent"
    ],
    "icons":{
-      "16":"images/hand_128.png",
-      "32":"images/hand_128.png",
-      "48":"images/hand_128.png",
-      "128":"images/hand_128.png"
+      "16":"images/hand-32.png",
+      "32":"images/hand-32.png",
+      "48":"images/hand-32.png",
+      "128":"images/hand-32.png"
    },
    "browser_action": {
       "default_title": "Where's That Link Go?"
