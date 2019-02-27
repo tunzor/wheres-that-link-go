@@ -12,35 +12,44 @@ $(document).mousemove(function(event) {
     currentMousePos.y = event.pageY;
 });
 
+// Get ext_enabled variable from storage and set local variable
+// equal to stored value
 chrome.storage.local.get(['ext_enabled'], function(result) {
 	console.log('Extension toggled: ' + result.ext_enabled);
 	enabled = result.ext_enabled;
 });
 
 $(document).ready(function(){
+	// Add popup to DOM body
 	$("body").append(getPopup());
 
+	// Whenever an anchor tag <a> is hovered over
 	$("a").hover(function(){
 		chrome.storage.local.get(['ext_enabled'], function(result) {
 			enabled = result.ext_enabled;
 		});
+		// Only show/hide popup if extension is enabled
 		if(enabled){
+			// Get link that cursor is hovering over
 			currentHoverLink = $(this).attr('href');
 
 			console.log(currentMousePos.x + ", " + currentMousePos.y);
 		    console.log(currentHoverLink);
 
 		    updatePopup(currentHoverLink, currentMousePos.x, currentMousePos.y);
+		    // Fade in popup to prevent flickering
 		    $("#wtlg_popup").stop(true, true).fadeIn();
 		}
     }, function(){
     	if(enabled){
+    		// Fade out popup to prevent flickering
 	   		$("#wtlg_popup").stop(true, true).fadeOut(); 
 	   	}
  	});
 });
 
 function getPopup() {
+	// Returns pop HTML
 	return "<div id='wtlg_popup' style='display: none; z-index: 1000; "
 		+ "background-color: #e3e3e3; position: absolute;"
 		+ "border: 2px solid black; left: 0px; top: 0px; font-size: 16pt;"

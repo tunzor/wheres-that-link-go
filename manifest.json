@@ -1,8 +1,8 @@
 {
    "name":"Where's that link go?",
    "version":"1.0",
-   "description":"Preview where links go before clicking on them. Also expands and shows shortened links.",
-   "manifest_version":2,
+   "description":"Preview links before clicking on them! Popup background colour shows if link is on same domain, shortened, or somewhere else.",
+   "manifest_version": 2,
    "permissions":[
       "activeTab",
       "storage",
@@ -15,7 +15,7 @@
       "128":"images/hand-32.png"
    },
    "browser_action": {
-      "default_title": "Where's That Link Go?"
+      "default_title": "Where's That Link Go? (Click to toggle)"
    },
    "background": {
       "scripts": ["toggle.js"]

@@ -1,9 +1,11 @@
 var enabled = false;
+// Set ext_enabled variable in storage to be used in hover.js
 chrome.storage.local.set({ext_enabled: true}, function() {
 	console.log('Enabled extension');
 	enabled = true;
 });
 
+// Runs toggleExtension function when extension button in toolbar is clicked
 chrome.browserAction.onClicked.addListener(toggleExtension);
 
 function toggleExtension() {
@@ -29,4 +31,8 @@ function toggleExtension() {
 			});
 		});
 	}
+	// Refresh required to apply changes
+	chrome.tabs.query({active: true, currentWindow: true}, function (arrayOfTabs) {
+	    chrome.tabs.reload(arrayOfTabs[0].id);
+	});
 }
